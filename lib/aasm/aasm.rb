@@ -28,12 +28,12 @@ module AASM
     def aasm(*args, &block)
       if args[0].is_a?(Symbol) || args[0].is_a?(String)
         # using custom name
-        state_machine_name = args[0].to_sym
         options = args[1] || {}
+        state_machine_name = args[0].to_sym
       else
         # using the default state_machine_name
-        state_machine_name = :default
         options = args[0] || {}
+        state_machine_name = options[:column] || :default
       end
 
       AASM::StateMachine[self][state_machine_name] ||= AASM::StateMachine.new(state_machine_name)
